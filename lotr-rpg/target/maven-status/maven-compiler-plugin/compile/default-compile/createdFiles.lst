@@ -1,0 +1,5 @@
+com/middleearth/models/characters/GameCharacter.class
+com/middleearth/Character.class
+com/middleearth/App.class
+com/middleearth/models/characters/Hero.class
+com/middleearth/models/interfaces/ICombatant.class
