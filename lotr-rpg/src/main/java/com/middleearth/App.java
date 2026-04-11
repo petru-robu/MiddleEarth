@@ -1,19 +1,30 @@
 package com.middleearth;
 
-import com.middleearth.models.characters.GameCharacter;
+import com.middleearth.engine.GameSession;
+import com.middleearth.engine.Player;
+import com.middleearth.items.types.Potion;
+import com.middleearth.items.types.Weapon;
+import com.middleearth.state.GameState;
+import com.middleearth.state.MainMenuState;
 
 public class App {
     public static void main(String[] args) {
-        GameCharacter gc1 = new GameCharacter(1, "Aragorn", 100, 100, 15, 10);
-        GameCharacter gc2 = new GameCharacter(2, "Orc", 80, 80, 10, 5);
+        // Start the game at the Main Menu
+        GameState currentState = new MainMenuState();
 
-        System.out.println(gc1);
-        System.out.println(gc2);
+        Player player = new Player("Aragorn");
 
-        gc1.attack(gc2);
+        Weapon rangerSword = new Weapon("Ranger's Longsword", "A well-worn but sharp blade.", 4.5, 12, false);
+        Potion lembas = new Potion("Lembas Bread", "One bite is enough to fill the stomach of a grown man.", 0.5, 50, "You take a bite. You feel invigorated!");
+        
+        player.getInventory().addItem(rangerSword);
+        player.getInventory().addItem(lembas);
 
-        System.out.println("After attack:");
-        System.out.println(gc1);
-        System.out.println(gc2);
+
+        GameSession.getInstance().setPlayer(player);
+
+        while (currentState != null) {
+            currentState = currentState.update();
+        }
     }
 }
