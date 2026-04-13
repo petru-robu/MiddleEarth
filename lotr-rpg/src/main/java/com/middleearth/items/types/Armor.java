@@ -15,8 +15,12 @@ public class Armor extends AbstractItem implements Equipable {
     }
 
     @Override
-    public EquipmentSlot getSlot() { return slot; }
+    public EquipmentSlot getSlot() {
+        return slot;
+    }
 
     @Override
-    public int getBonus() { return defense; }
+    public int getBonus() {
+        return defense;
+    }
 }

@@ -24,5 +24,7 @@ public class Weapon extends AbstractItem implements Equipable {
         return damage;
     }
 
-    public boolean isTwoHanded() { return twoHanded; }
+    public boolean isTwoHanded() {
+        return twoHanded;
+    }
 }

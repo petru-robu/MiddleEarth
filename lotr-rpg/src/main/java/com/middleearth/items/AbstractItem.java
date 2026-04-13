@@ -12,11 +12,17 @@ public abstract class AbstractItem implements Item {
     }
 
     @Override
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     @Override
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     @Override
-    public double getWeight() { return weight; }
+    public double getWeight() {
+        return weight;
+    }
 }

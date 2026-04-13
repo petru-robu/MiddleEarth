@@ -1,11 +1,13 @@
 com/middleearth/items/EquipmentSlot.class
 com/middleearth/state/GameState.class
 com/middleearth/CommandInterceptor.class
+com/middleearth/DatabaseConfiguration.class
 com/middleearth/state/InventoryState.class
 com/middleearth/engine/Player.class
 com/middleearth/App.class
 com/middleearth/state/MainMenuState.class
 com/middleearth/engine/GameSession.class
+com/middleearth/GenericRepository.class
 com/middleearth/items/AbstractItem.class
 com/middleearth/items/Equipable.class
 com/middleearth/items/types/Armor.class
@@ -13,6 +15,7 @@ com/middleearth/items/Item.class
 com/middleearth/state/regions/shire/Shire.class
 com/middleearth/state/game/OpenWorld.class
 com/middleearth/engine/Inventory.class
+com/middleearth/engine/Area.class
 com/middleearth/Renderer$Style.class
 com/middleearth/Renderer.class
 com/middleearth/items/types/Weapon.class

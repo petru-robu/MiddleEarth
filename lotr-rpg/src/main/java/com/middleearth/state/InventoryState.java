@@ -68,6 +68,7 @@ public class InventoryState implements GameState {
         Inventory bag = player.getInventory();
         
         ui.render("Player Name: " + player.getName());
+        ui.render("Experince Level: " + player.getXp());
         ui.render("Health: " + player.getHealth());
 
         ui.renderSubtitle("Inventory: ");

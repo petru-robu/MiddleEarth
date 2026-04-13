@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.middleearth.engine.Area;
+
 public class Renderer {
-    
+
     private static Renderer instance;
 
     public static Renderer getInstance() {
@@ -23,7 +25,10 @@ public class Renderer {
         GRAY("\u001B[90m"),
         RED("\u001B[31m"),
         BOLD("\u001B[1m"),
-        STRIKETHROUGH("\u001B[9m");
+        STRIKETHROUGH("\u001B[9m"),
+        MAGENTA("\u001B[35m"),
+        ORANGE("\u001B[38;5;208m"),
+        ELECTRIC_BLUE("\u001B[94m");
 
         private final String code;
 
@@ -43,7 +48,8 @@ public class Renderer {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private Renderer() {}
+    private Renderer() {
+    }
 
     /**
      * Renders text. If no styles are provided, defaults to GRAY.
@@ -61,7 +67,7 @@ public class Renderer {
                 sb.append(style.getCode());
             }
         }
-        
+
         sb.append(text).append(Style.RESET);
         System.out.println(sb);
     }
@@ -78,7 +84,7 @@ public class Renderer {
 
     public void renderSubtitle(String text) {
         System.out.println();
-        render("--- " + text + " ---", Style.CYAN);
+        render("--- " + text + " ---", Style.ORANGE);
     }
 
     public void renderOptions(List<String> options) {
@@ -138,21 +144,42 @@ public class Renderer {
     }
 
     /**
-     * Prints all stored messages in the order they were added, then clears the queue.
+     * Prints all stored messages in the order they were added, then clears the
+     * queue.
      */
     public void renderFlashes() {
         if (flashQueue.isEmpty()) {
             return; // Do nothing if there are no messages
         }
-        
+
         for (Flash flash : flashQueue) {
             render(flash.message, flash.styles); // Re-use your master render method!
         }
-        
-        flashQueue.clear(); 
+
+        flashQueue.clear();
+    }
+
+    // AREA
+    public void renderAreaOptions(List<Area> areas, int playerXp) {
+
+        System.out.println();
+
+        for (int i = 0; i < areas.size(); i++) {
+            Area area = areas.get(i);
+            boolean unlocked = area.isUnlocked(playerXp);
+            String prefix = "  " + Style.CYAN + (i + 1) + ") " + Style.RESET;
+
+            if (unlocked) {
+                System.out.print(prefix);
+                render(Style.RESET + "" + Style.BOLD + area.getName() + Style.RESET + 
+                ": " + Style.GRAY + area.getDescription());
+
+            } else {
+                // Render locked state
+                System.out.print(prefix);
+                render(Style.BOLD + area.getName() + Style.RESET + Style.RED + " [Locked - Needs " + area.getRequiredXp() + " XP]", Style.RED);
+            }
+        }
     }
 
 }
-
-
-    

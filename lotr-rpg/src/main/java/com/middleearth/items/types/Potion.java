@@ -14,8 +14,12 @@ public class Potion extends AbstractItem implements Consumable {
     }
 
     @Override
-    public int getRestoreAmount() { return healAmount; }
+    public int getRestoreAmount() {
+        return healAmount;
+    }
 
     @Override
-    public String getUseMessage() { return useMessage; }
+    public String getUseMessage() {
+        return useMessage;
+    }
 }

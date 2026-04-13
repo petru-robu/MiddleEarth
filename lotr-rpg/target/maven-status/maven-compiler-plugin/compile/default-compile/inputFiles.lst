@@ -12,8 +12,11 @@
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/Equipable.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/GameSession.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/Item.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/Area.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/EquipmentSlot.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/DatabaseConfiguration.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/game/OpenWorld.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/Renderer.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/InventoryState.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/GenericRepository.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/Player.java
