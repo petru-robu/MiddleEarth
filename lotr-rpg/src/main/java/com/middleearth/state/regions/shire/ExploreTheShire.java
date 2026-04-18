@@ -1,8 +1,7 @@
 package com.middleearth.state.regions.shire;
 
-import com.middleearth.CommandInterceptor;
-import com.middleearth.Renderer;
-import com.middleearth.engine.Area;
+import com.middleearth.ui.CommandInterceptor;
+import com.middleearth.ui.Renderer;
 import com.middleearth.engine.GameSession;
 import com.middleearth.state.GameState;
 import com.middleearth.engine.Player;

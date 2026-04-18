@@ -1,8 +1,7 @@
 package com.middleearth.state;
 
-import com.middleearth.CommandInterceptor;
-import com.middleearth.Renderer;
-import com.middleearth.state.game.OpenWorld;
+import com.middleearth.ui.CommandInterceptor;
+import com.middleearth.ui.Renderer;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class MainMenuState implements GameState {
 
         ui.renderTitle("The Lord of the Rings");
 
-        List<String> options = List.of("Start New Game", "Load Game", "Exit");
+        List<String> options = List.of("Play", "Exit");
         ui.renderOptions(options);
 
         String input = ui.prompt("Choose an option");
@@ -29,12 +28,8 @@ public class MainMenuState implements GameState {
 
         switch (input) {
             case "1":
-                ui.addFlashInfo("This is work in progress.");
-                return new OpenWorld(this);
+                return new CharacterSelectState();
             case "2":
-                ui.addFlashError("Load not implemented yet.");
-                return this;
-            case "3":
                 System.exit(0);
             default:
                 ui.addFlashError("Invalid choice.");

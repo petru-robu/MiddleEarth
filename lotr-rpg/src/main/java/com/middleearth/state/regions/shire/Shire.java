@@ -1,8 +1,8 @@
 package com.middleearth.state.regions.shire;
 
-import com.middleearth.Renderer;
+import com.middleearth.ui.Renderer;
 import com.middleearth.state.GameState;
-import com.middleearth.CommandInterceptor;
+import com.middleearth.ui.CommandInterceptor;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.middleearth;
+package com.middleearth.ui;
 
 import com.middleearth.state.GameState;
 

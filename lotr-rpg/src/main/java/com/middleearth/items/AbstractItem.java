@@ -1,6 +1,7 @@
 package com.middleearth.items;
 
 public abstract class AbstractItem implements Item {
+    private int id;
     private final String name;
     private final String description;
     private final double weight;
@@ -9,6 +10,15 @@ public abstract class AbstractItem implements Item {
         this.name = name;
         this.description = description;
         this.weight = weight;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

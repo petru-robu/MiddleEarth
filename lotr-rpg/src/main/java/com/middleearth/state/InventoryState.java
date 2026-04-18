@@ -1,8 +1,8 @@
 package com.middleearth.state;
 
-import com.middleearth.Renderer;
+import com.middleearth.db.InventoryItemRepository;
+import com.middleearth.ui.Renderer;
 import com.middleearth.engine.GameSession;
-import com.middleearth.engine.Inventory;
 import com.middleearth.engine.Player;
 import com.middleearth.items.Consumable;
 import com.middleearth.items.Equipable;
@@ -12,10 +12,11 @@ import com.middleearth.items.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.middleearth.CommandInterceptor;
+import com.middleearth.ui.CommandInterceptor;
 
 public class InventoryState implements GameState {
     private final GameState previousState;
+    private final InventoryItemRepository inventoryRepo = new InventoryItemRepository();
 
     public InventoryState(GameState previousState) {
         this.previousState = previousState;
@@ -47,7 +48,7 @@ public class InventoryState implements GameState {
         }
 
         // 3. The Weight
-        sb.append(" (").append(item.getWeight()).append(" lbs)");
+        sb.append(" (").append(item.getWeight()).append(" kg)");
 
         return sb.toString();
     }
@@ -65,27 +66,31 @@ public class InventoryState implements GameState {
 
         ui.renderSubtitle("Information: ");
         Player player = GameSession.getInstance().getPlayer();
-        Inventory bag = player.getInventory();
-        
+
         ui.render("Player Name: " + player.getName());
         ui.render("Experince Level: " + player.getXp());
         ui.render("Health: " + player.getHealth());
 
         ui.renderSubtitle("Inventory: ");
-        String weightText = String.format("Weight: %.1f / %.1f lbs", 
-                                          bag.getCurrentWeight(), 
-                                          bag.getMaxWeightCapacity());
+
+        // Get items and weight from the database
+        List<Item> items = inventoryRepo.getItemsByPlayerId(player.getId());
+        double currentWeight = inventoryRepo.getTotalWeight(player.getId());
+        double maxCapacity = player.getCharacterClass() != null
+                ? player.getCharacterClass().getBagCapacity()
+                : 600;
+
+        String weightText = String.format("Weight: %.1f / %.1f lbs", currentWeight, maxCapacity);
         ui.render(weightText, Renderer.Style.CYAN);
 
-
-        if (bag.isEmpty()) {
+        if (items.isEmpty()) {
             ui.render("Your bag is entirely empty. Only dust remains.");
             String input = ui.prompt("Type :b to go back");
-            
+
             if (input.equalsIgnoreCase(":b")) {
                 return previousState;
             }
-            
+
             // handle invetory opening in inventory
             if (input.equalsIgnoreCase(":i")) {
                 return this;
@@ -95,14 +100,13 @@ public class InventoryState implements GameState {
         }
 
         List<String> displayOptions = new ArrayList<>();
-        for (Item item : bag.getAllItems()) {
+        for (Item item : items) {
             displayOptions.add(formatItemForList(item));
         }
 
         ui.renderOptions(displayOptions);
 
         String input = ui.prompt("Select an item, or type :b to go back");
-
 
         if (input.startsWith(":")) {
             // handle back locally

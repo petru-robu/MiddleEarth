@@ -1,13 +1,14 @@
 package com.middleearth.state.game;
 
-import com.middleearth.CommandInterceptor;
-import com.middleearth.Renderer;
-import com.middleearth.engine.Area;
+import com.middleearth.ui.CommandInterceptor;
+import com.middleearth.ui.Renderer;
+import com.middleearth.engine.Region;
+
+import com.middleearth.db.RegionRepository;
 import com.middleearth.engine.GameSession;
 import com.middleearth.state.GameState;
 import com.middleearth.engine.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OpenWorld implements GameState {
@@ -29,7 +30,10 @@ public class OpenWorld implements GameState {
 
         GameSession game = GameSession.getInstance();
         Player player = game.getPlayer();
-        List<Area> worldMap = game.getWorldMap();
+
+        RegionRepository regionRepo = new RegionRepository();
+
+        List<Region> worldMap = regionRepo.getAll();
 
         ui.renderAreaOptions(worldMap, player.getXp());
 
@@ -54,7 +58,7 @@ public class OpenWorld implements GameState {
             ui.addFlashError("Invalid choice.");
             return this;
         }
-        Area selected = worldMap.get(index);
+        Region selected = worldMap.get(index);
 
         if(!selected.isUnlocked(player.getXp())) {
             ui.addFlashError("You cannot enter " + selected.getName() + " yet!");

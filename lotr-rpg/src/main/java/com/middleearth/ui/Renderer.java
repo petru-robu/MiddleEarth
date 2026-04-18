@@ -1,10 +1,10 @@
-package com.middleearth;
+package com.middleearth.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.middleearth.engine.Area;
+import com.middleearth.engine.Region;
 
 public class Renderer {
 
@@ -159,13 +159,13 @@ public class Renderer {
         flashQueue.clear();
     }
 
-    // AREA
-    public void renderAreaOptions(List<Area> areas, int playerXp) {
+    // Region rendering helper
+    public void renderAreaOptions(List<Region> regions, int playerXp) {
 
         System.out.println();
 
-        for (int i = 0; i < areas.size(); i++) {
-            Area area = areas.get(i);
+        for (int i = 0; i < regions.size(); i++) {
+            Region area = regions.get(i);
             boolean unlocked = area.isUnlocked(playerXp);
             String prefix = "  " + Style.CYAN + (i + 1) + ") " + Style.RESET;
 
@@ -177,7 +177,7 @@ public class Renderer {
             } else {
                 // Render locked state
                 System.out.print(prefix);
-                render(Style.BOLD + area.getName() + Style.RESET + Style.RED + " [Locked - Needs " + area.getRequiredXp() + " XP]", Style.RED);
+                render(Style.BOLD + area.getName() + Style.RESET + Style.RED + " [Locked - Needs " + area.getXp() + " XP]", Style.RED);
             }
         }
     }
