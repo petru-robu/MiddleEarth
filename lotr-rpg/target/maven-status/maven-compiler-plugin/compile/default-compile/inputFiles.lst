@@ -1,7 +1,12 @@
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/shire/RiddlesInTheDark.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/CompletedQuestRepository.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/blackgate/Blackgate.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/types/Armor.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/types/Potion.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/MainMenuState.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/bree/Bree.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/PlayerRepository.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/Quest.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/GameState.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/ui/Renderer.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/CharacterClassRepository.java
@@ -9,6 +14,7 @@
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/Item.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/items/EquipmentSlot.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/game/OpenWorld.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/rivendell/Rivendell.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/RegionRepository.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/ui/CommandInterceptor.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/Player.java
@@ -28,5 +34,7 @@
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/GameSession.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/CharacterClass.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/InventoryItemRepository.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/QuestRepository.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/InventoryState.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/ItemRepository.java
+/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/lothlorien/Lothlorien.java

@@ -1,5 +1,7 @@
 package com.middleearth.engine;
 
+import com.middleearth.db.PlayerRepository;
+
 public class Player {
     private int id;
     private String name;
@@ -44,6 +46,9 @@ public class Player {
 
     public void addXp(int amount) {
         this.xp += amount;
+        if (this.id > 0) {
+            new PlayerRepository().update(this);
+        }
     }
 
     public CharacterClass getCharacterClass() {

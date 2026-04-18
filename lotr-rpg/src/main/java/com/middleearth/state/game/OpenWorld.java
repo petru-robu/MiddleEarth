@@ -68,13 +68,14 @@ public class OpenWorld implements GameState {
         switch (input) {
             case "1":
                 return new com.middleearth.state.regions.shire.Shire();
-
             case "2":
-                return this;
-
+                return new com.middleearth.state.regions.bree.Bree();
             case "3":
-                return this;
-
+                return new com.middleearth.state.regions.rivendell.Rivendell();
+            case "4":
+                return new com.middleearth.state.regions.lothlorien.Lothlorien();
+            case "5":
+                return new com.middleearth.state.regions.blackgate.Blackgate();
             default:
                 ui.addFlashError("Invalid choice.");
                 return this;

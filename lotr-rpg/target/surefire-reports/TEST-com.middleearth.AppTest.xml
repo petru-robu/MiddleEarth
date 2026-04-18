@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-25-openjdk/lib"/>
-    <property name="sun.java.command" value="/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire/surefirebooter7029701194346329149.jar /home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire 2026-04-18T11-12-02_260-jvmRun1 surefire13741880529054121129tmp surefire_018106146229899919436tmp"/>
+    <property name="sun.java.command" value="/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire/surefirebooter7295611249430703093.jar /home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire 2026-04-18T11-54-21_254-jvmRun1 surefire8683720435684823374tmp surefire_05352245085118799830tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/test-classes:/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/classes:/home/petru-robu/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/petru-robu/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21-linux.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21-linux.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21-linux.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21.jar:/home/petru-robu/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21-linux.jar:/home/petru-robu/.m2/repository/com/googlecode/lanterna/lanterna/3.1.1/lanterna-3.1.1.jar:/home/petru-robu/.m2/repository/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar:/home/petru-robu/.m2/repository/com/google/protobuf/protobuf-java/3.25.1/protobuf-java-3.25.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire/surefirebooter7029701194346329149.jar"/>
+    <property name="surefire.real.class.path" value="/home/petru-robu/Code/MiddleEarth/lotr-rpg/target/surefire/surefirebooter7295611249430703093.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.2+10"/>
     <property name="user.name" value="petru-robu"/>
@@ -55,5 +55,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.middleearth.AppTest" time="0.002"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.middleearth.AppTest" time="0.003"/>
 </testsuite>

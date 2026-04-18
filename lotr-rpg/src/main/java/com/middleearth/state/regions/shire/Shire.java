@@ -1,12 +1,23 @@
 package com.middleearth.state.regions.shire;
 
+import com.middleearth.db.CompletedQuestRepository;
+import com.middleearth.db.QuestRepository;
+import com.middleearth.engine.GameSession;
+import com.middleearth.engine.Quest;
 import com.middleearth.ui.Renderer;
 import com.middleearth.state.GameState;
 import com.middleearth.ui.CommandInterceptor;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Shire implements GameState {
+
+    private static final int REGION_ID = 1;
+
     @Override
     public GameState update() {
         Renderer ui = Renderer.getInstance();
@@ -16,43 +27,67 @@ public class Shire implements GameState {
         ui.renderTitle("Welcome to The Shire");
 
         ui.renderSubtitle(
-                "The Shire is a peaceful region inhabited by hobbits.\"It's known for its lush green fields, cozy hobbit holes, and vibrant community spirit.");
-        ui.render(
-                "\nAs a visitor to the Shire, you can enjoy the simple pleasures of life, such as gardening, farming, and socializing with the friendly hobbits." +
-                        "The Shire is also famous for its festivals and celebrations, where you can join in the fun and experience the warmth of hobbit hospitality.");
-        
-        ui.render("\nWhat would you like to do?");
+                "Rolling green hills and quiet hobbit holes. A peaceful place to start.");
 
-        List<String> options = List.of(
-                "Explore the Shire",
-                "Visit Hobbiton",
-                "The Crop Raider's Folly",
-                "Ambush at the Brandywine (Battle)",
-                "Return to Open World");
+        ui.render("\nAvailable Quests:");
+
+        QuestRepository questRepo = new QuestRepository();
+        List<Quest> quests = questRepo.getByRegionId(REGION_ID);
+
+        int playerId = GameSession.getInstance().getPlayer().getId();
+        CompletedQuestRepository completedRepo = new CompletedQuestRepository();
+        Map<Integer, LocalDateTime> completedIds = completedRepo.getCompletedQuestIds(playerId);
+
+        List<String> options = new ArrayList<>();
+        for (Quest q : quests) {
+            boolean done = completedIds.containsKey(q.getId());
+            if (done) {
+                LocalDateTime ts = completedIds.get(q.getId());
+                String when = ts != null ? ts.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")) : "";
+                options.add(Renderer.Style.GREEN + q.getTitle() + " [Completed at " + when + "]" + Renderer.Style.RESET + "\n");
+            } else {
+                String tag = q.getQuestType() == Quest.QuestType.BATTLE
+                        ? Renderer.Style.RED + "[Battle]" + Renderer.Style.RESET
+                        : Renderer.Style.CYAN + "[Puzzle]" + Renderer.Style.RESET;
+                options.add(tag + " " + Renderer.Style.GOLD + q.getTitle() + Renderer.Style.RESET
+                        + "\n      " + Renderer.Style.GRAY + q.getDescription() + Renderer.Style.RESET
+                        + "\n      Difficulty: " + q.getDifficulty() + "  |  XP: " + q.getXpReward()
+                        + (q.getItemReward() != null ? "  |  Reward: " + q.getItemReward().getName() : "")
+                        + "\n");
+            }
+        }
+
+        options.add("Return to Open World");
 
         ui.renderOptions(options);
-        String input = ui.prompt("Choose an action");
+        String input = ui.prompt("Choose a quest");
 
         if (input.startsWith(":")) {
-            // pass to interceptor
             return CommandInterceptor.handle(input, this);
         }
 
-        switch (input) {
-            case "1":
-                return this;
-            case "2":
-                return this;
-            case "3":
-                return this;
-            case "4":
-                return this;
-            case "5":
+        try {
+            int choice = Integer.parseInt(input);
+            if (choice == options.size()) {
                 return new com.middleearth.state.game.OpenWorld(this);
-            default:
-                ui.addFlashError("Invalid choice.");
-                return this;
+            }
+            if (choice >= 1 && choice <= quests.size()) {
+                Quest selected = quests.get(choice - 1);
+                if (completedIds.containsKey(selected.getId())) {
+                    ui.addFlashError("You have already completed this quest.");
+                    return this;
+                }
+                switch (choice) {
+                    case 1:
+                        return new RiddlesInTheDark(selected);
+                    default:
+                        return this;
+                }
+            }
+        } catch (NumberFormatException ignored) {
         }
-    }
 
+        ui.addFlashError("Invalid choice.");
+        return this;
+    }
 }
