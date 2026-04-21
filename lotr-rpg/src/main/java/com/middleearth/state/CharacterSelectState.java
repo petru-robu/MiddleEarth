@@ -8,6 +8,7 @@ import com.middleearth.ui.CommandInterceptor;
 import com.middleearth.ui.Renderer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CharacterSelectState implements GameState {
@@ -22,7 +23,11 @@ public class CharacterSelectState implements GameState {
         ui.renderTitle("Character Select");
 
         PlayerRepository repo = new PlayerRepository();
-        List<Player> heroes = repo.getAll();
+        List<Player> player_repo = repo.getAll();
+
+        // sorted list: players sorted by XP descending
+        List<Player> heroes = new ArrayList<>(player_repo);
+        Collections.sort(heroes);
 
         if (heroes.isEmpty()) {
             ui.render("No heroes found. Create your first one!");
@@ -69,7 +74,9 @@ public class CharacterSelectState implements GameState {
             return this;
         }
 
+
         Player selected = heroes.get(index);
+
         GameSession.init(selected);
         ui.addFlashInfo("Welcome back, " + selected.getName() + "!");
 

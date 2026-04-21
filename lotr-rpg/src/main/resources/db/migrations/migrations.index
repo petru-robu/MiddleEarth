@@ -2,3 +2,6 @@ V1__create_schema.sql
 V2__character_classes.sql
 V3__items_catalog.sql
 V4__regions.sql
+V5__enemies.sql
+V6__enemy_ascii.sql
+V7__player_equipment.sql

@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class Lothlorien implements GameState {
 
-    private static final int REGION_ID = 4;
+    private static final int REGION_ID = 2;
 
     @Override
     public GameState update() {
@@ -76,7 +76,15 @@ public class Lothlorien implements GameState {
                     ui.addFlashError("You have already completed this quest.");
                     return this;
                 }
-                return this;
+                int questIndex = quests.indexOf(selected) + 1;
+                switch (questIndex) {
+                    case 1: return new MirrorOfGaladriel(selected);
+                    case 2: return new OrcRaid(selected);
+                    case 3: return new WargsInGoldenWood(selected);
+                    default:
+                        ui.addFlashError("This quest is not yet available.");
+                        return this;
+                }
             }
         } catch (NumberFormatException ignored) {}
 

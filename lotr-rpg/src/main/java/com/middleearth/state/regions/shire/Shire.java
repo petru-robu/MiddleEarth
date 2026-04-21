@@ -80,6 +80,10 @@ public class Shire implements GameState {
                 switch (choice) {
                     case 1:
                         return new RiddlesInTheDark(selected);
+                    case 2:
+                        return new CropRaider(selected);
+                    case 3:
+                        return new BrandyWine(selected);
                     default:
                         return this;
                 }

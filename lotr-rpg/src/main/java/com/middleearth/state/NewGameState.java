@@ -8,6 +8,7 @@ import com.middleearth.engine.GameSession;
 import com.middleearth.engine.Player;
 import com.middleearth.items.Equipable;
 import com.middleearth.items.Item;
+import com.middleearth.service.AuditService;
 import com.middleearth.ui.CommandInterceptor;
 import com.middleearth.ui.Renderer;
 
@@ -93,16 +94,21 @@ public class NewGameState implements GameState {
         PlayerRepository repo = new PlayerRepository();
         repo.insert(player);
 
-        // Save starter items to the database
+        // Save starter items to the database and auto-equip them
         if (player.getId() > 0) {
             InventoryItemRepository inventoryRepo = new InventoryItemRepository();
 
             if (chosen.getStarterWeapon() != null) {
                 inventoryRepo.addItemToPlayer(player.getId(), chosen.getStarterWeapon().getId());
+                player.setEquippedWeapon(chosen.getStarterWeapon());
             }
             if (chosen.getStarterItem() != null) {
                 inventoryRepo.addItemToPlayer(player.getId(), chosen.getStarterItem().getId());
+                if (chosen.getStarterItem() instanceof Equipable) {
+                    player.setEquippedArmor(chosen.getStarterItem());
+                }
             }
+            repo.update(player);
         }
 
         if (player.getId() > 0) {
@@ -113,6 +119,7 @@ public class NewGameState implements GameState {
 
         // Initialize the game session with the new player
         GameSession.init(player);
+        AuditService.getInstance().log(AuditService.NEW_GAME);
 
         return new com.middleearth.state.CharacterSelectState();
     }

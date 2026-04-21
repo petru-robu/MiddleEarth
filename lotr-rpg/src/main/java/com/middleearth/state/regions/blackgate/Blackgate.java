@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class Blackgate implements GameState {
 
-    private static final int REGION_ID = 5;
+    private static final int REGION_ID = 3;
 
     @Override
     public GameState update() {
@@ -76,7 +76,15 @@ public class Blackgate implements GameState {
                     ui.addFlashError("You have already completed this quest.");
                     return this;
                 }
-                return this;
+                int questIndex = quests.indexOf(selected) + 1;
+                switch (questIndex) {
+                    case 1: return new MouthOfSauron(selected);
+                    case 2: return new SiegeOfMorannon(selected);
+                    case 3: return new OlogHaiVanguard(selected);
+                    default:
+                        ui.addFlashError("This quest is not yet available.");
+                        return this;
+                }
             }
         } catch (NumberFormatException ignored) {}
 

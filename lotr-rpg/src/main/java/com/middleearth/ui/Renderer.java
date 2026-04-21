@@ -159,6 +159,17 @@ public class Renderer {
         flashQueue.clear();
     }
 
+    
+    public String bar(int current, int max, int width, Style color) {
+        int filled = max > 0 ? (int) Math.round((double) current / max * width) : 0;
+        filled = Math.max(0, Math.min(width, filled));
+        String bar = "[" + "█".repeat(filled) + "░".repeat(width - filled) + "]";
+        if (color != null) {
+            return color + bar + Style.RESET;
+        }
+        return bar;
+    }
+
     // Region rendering helper
     public void renderAreaOptions(List<Region> regions, int playerXp) {
 

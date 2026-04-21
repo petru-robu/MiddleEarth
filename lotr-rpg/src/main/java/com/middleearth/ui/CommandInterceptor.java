@@ -1,7 +1,7 @@
 package com.middleearth.ui;
 
+import com.middleearth.service.AuditService;
 import com.middleearth.state.GameState;
-
 import com.middleearth.state.InventoryState;
 
 public class CommandInterceptor {
@@ -27,6 +27,7 @@ public class CommandInterceptor {
                 return currentState;
 
             case ":q":
+                AuditService.getInstance().log(AuditService.QUIT_GAME);
                 ui.render("Farewell, traveler.", Renderer.Style.GOLD);
                 System.exit(0);
                 return null;

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS items (
 
 -- Seed: Weapons
 INSERT INTO items (name, item_type, description, weight, bonus, slot, restore_amount) VALUES
-('Sting',             'WEAPON', 'A small Elvish blade that glows blue when Orcs are near.', 2.0, 6,  'MAIN_HAND', 0),
+('Sting',             'WEAPON', 'A small Elvish blade that glows blue when Orcs are near.', 60.0, 6,  'MAIN_HAND', 0),
 ('Elven Longbow',     'WEAPON', 'A graceful bow of Lothlórien make. Deadly accurate.', 3.0, 10, 'MAIN_HAND', 0),
 ('Iron Broadsword',   'WEAPON', 'A heavy, battle-tested blade forged by Men.', 5.0, 14, 'MAIN_HAND', 0),
 ('Wizard Staff',      'WEAPON', 'A gnarled staff crackling with arcane energy.', 4.0, 16, 'MAIN_HAND', 0),
