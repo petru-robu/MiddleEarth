@@ -12,6 +12,7 @@ import com.middleearth.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.middleearth.service.AuditService;
 import com.middleearth.ui.CommandInterceptor;
@@ -102,6 +103,19 @@ public class InventoryState implements GameState {
             if (input.equalsIgnoreCase(":i")) return this;
             return CommandInterceptor.handle(input, this);
         }
+
+        TreeSet<String> categories = new TreeSet<>();
+        for (Item item : items) {
+            if (item instanceof Equipable) {
+                Equipable eq = (Equipable) item;
+                categories.add(Player.isWeaponSlot(eq.getSlot()) ? "Weapon" : "Armor");
+            } else if (item instanceof Consumable) {
+                categories.add("Consumable");
+            } else {
+                categories.add("Misc");
+            }
+        }
+        ui.render("  Categories: " + String.join(", ", categories));
 
         List<String> displayOptions = new ArrayList<>();
         for (Item item : items) {

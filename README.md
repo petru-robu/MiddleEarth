@@ -1,11 +1,12 @@
 # Middle-Earth LOTR RPG
 
 Joc RPG cu interfata in terminal, inspirat din universul Stapanul Inelelor.
-Scris in Java, cu persistenta in MariaDB/MySQL.
+
+Tech Stack: Java + MySQL
 
 ---
 
-## Actiuni disponibile
+## Actiuni
 
 | # | Actiune | Descriere |
 |---|---------|-----------|
@@ -31,8 +32,8 @@ Scris in Java, cu persistenta in MariaDB/MySQL.
 
 | # | Tip | Descriere |
 |---|-----|-----------|
-| 1 | `Player` | Personajul jucatorului: nume, HP, XP, clasa, inventar, echipament |
-| 2 | `Enemy` | Inamic de lupta: HP, atac, tip, obiect de loot, ASCII art |
+| 1 | `Player` | Personaj: nume, HP, XP, clasa, inventar, echipament |
+| 2 | `Enemy` | Inamic: HP, atac, tip, obiect de loot, ASCII art |
 | 3 | `Quest` | Misiune: titlu, tip (BATTLE/PUZZLE), dificultate, recompensa XP si obiect |
 | 4 | `Region` | Regiune: nume, descriere, cerinta minima XP |
 | 5 | `CharacterClass` | Clasa personajului: HP de baza, capacitate bagaj, arma si item de start |
@@ -56,31 +57,18 @@ ATTACK,2026-04-21T14:32:00
 COMPLETE_QUEST,2026-04-21T14:35:12
 ```
 
-Implementat in `com.middleearth.service.AuditService`.
+Implementat in `service.AuditService`.
 
 ---
 
 ## Baza de date
 
-- **Motor:** MariaDB / MySQL
+- **Engine:** MySQL (MariaDB)
 - **URL:** `jdbc:mysql://localhost:3306/lotr_db`
 - **User:** `lotr_user` / **Parola:** `pass`
 
-Migrarile ruleaza automat la pornire din `src/main/resources/db/migrations/`.
+Migrarile ruleaza automat din: `src/main/resources/db/migrations/`.
 Conventie de denumire: `V{nr}__{descriere}.sql`
-
-### Migrari aplicate
-
-| Versiune | Fisier | Descriere |
-|----------|--------|-----------|
-| 1 | `V1__create_schema.sql` | Schema initiala: players, inventory_items |
-| 2 | `V2__character_classes.sql` | Clase de personaje |
-| 3 | `V3__items_catalog.sql` | Catalog obiecte (arme, armuri, potiuni) |
-| 4 | `V4__regions.sql` | Regiuni si misiuni |
-| 5 | `V5__enemies.sql` | Inamici per misiune |
-| 6 | `V6__enemy_ascii.sql` | ASCII art pentru inamici |
-| 7 | `V7__player_equipment.sql` | Campuri echipament pe jucator |
-
 ---
 
 ## Rulare
@@ -125,7 +113,7 @@ sudo mysql -e "DROP DATABASE lotr_db; CREATE DATABASE lotr_db;"
 
 | Comanda | Efect |
 |---------|-------|
-| `:i` | Deschide inventarul |
-| `:h` | Afiseaza ajutor |
+| `:i` | Informatii despre jucator si inventar |
+| `:h` | Afiseaza comenzile disponibile |
 | `:r` | Redeseneaza ecranul |
 | `:q` | Iese din joc |
