@@ -6,6 +6,10 @@ import com.middleearth.ui.Renderer;
 import java.util.List;
 
 public class MainMenuState implements GameState {
+    /*
+        Main Menu State: choose play / exit / credits, etc.
+    */
+   
     @Override
     public GameState update() {
         Renderer ui = Renderer.getInstance();

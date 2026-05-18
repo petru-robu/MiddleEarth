@@ -18,6 +18,7 @@ public class CompletedQuestRepository {
         }
     }
 
+    // check if a quest is completed for a player
     public boolean isCompleted(int playerId, int questId) {
         String sql = "SELECT 1 FROM completed_quests WHERE player_id = ? AND quest_id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -32,6 +33,7 @@ public class CompletedQuestRepository {
         return false;
     }
 
+    // get completed quests for a player with completion timestamp
     public Map<Integer, LocalDateTime> getCompletedQuestIds(int playerId) {
         Map<Integer, LocalDateTime> map = new HashMap<>();
         String sql = "SELECT quest_id, completed_at FROM completed_quests WHERE player_id = ?";

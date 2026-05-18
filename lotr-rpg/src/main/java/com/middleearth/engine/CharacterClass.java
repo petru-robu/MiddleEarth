@@ -12,7 +12,7 @@ public class CharacterClass {
     private Item starterItem;
 
     public CharacterClass(String name, String description, int baseHealth, double bagCapacity,
-                          Item starterWeapon, Item starterItem) {
+            Item starterWeapon, Item starterItem) {
         this.name = name;
         this.description = description;
         this.baseHealth = baseHealth;
@@ -21,13 +21,35 @@ public class CharacterClass {
         this.starterItem = starterItem;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public int getBaseHealth() { return baseHealth; }
-    public double getBagCapacity() { return bagCapacity; }
-    public Item getStarterWeapon() { return starterWeapon; }
-    public Item getStarterItem() { return starterItem; }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public double getBagCapacity() {
+        return bagCapacity;
+    }
+
+    public Item getStarterWeapon() {
+        return starterWeapon;
+    }
+
+    public Item getStarterItem() {
+        return starterItem;
+    }
 }

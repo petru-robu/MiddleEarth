@@ -6,8 +6,11 @@ import java.util.Scanner;
 
 import com.middleearth.engine.Region;
 
-public class Renderer {
 
+/*
+    Singletone Renderer class
+*/
+public class Renderer {
     private static Renderer instance;
 
     public static Renderer getInstance() {
@@ -51,10 +54,6 @@ public class Renderer {
     private Renderer() {
     }
 
-    /**
-     * Renders text. If no styles are provided, defaults to GRAY.
-     * Otherwise, applies all provided styles (colors, bold, strikethrough, etc.)
-     */
     public void render(String text, Style... styles) {
         if (styles.length == 0) {
             System.out.println(Style.GRAY + text + Style.RESET);
@@ -71,8 +70,6 @@ public class Renderer {
         sb.append(text).append(Style.RESET);
         System.out.println(sb);
     }
-
-    // --- Semantic Helpers ---
 
     public void renderTitle(String text) {
         String border = "=".repeat(text.length() + 8);
@@ -106,9 +103,7 @@ public class Renderer {
     }
 
     // ----- Flash Messages -----
-    // --- The Flash Message Queue ---
-
-    // A small internal class to hold a message and its specific styles
+    // Flash Message Class
     private static class Flash {
         String message;
         Style[] styles;
@@ -122,23 +117,16 @@ public class Renderer {
     // The queue of messages waiting to be displayed
     private final List<Flash> flashQueue = new ArrayList<>();
 
-    /**
-     * Adds a custom styled message to the flash queue.
-     */
     public void addFlash(String message, Style... styles) {
         flashQueue.add(new Flash(message, styles));
     }
 
-    /**
-     * Convenience method for a standard Error flash
-     */
+    // error flash
     public void addFlashError(String message) {
         addFlash("-- " + message, Style.RED, Style.BOLD);
     }
 
-    /**
-     * Convenience method for a standard Info/Success flash
-     */
+    // info flash
     public void addFlashInfo(String message) {
         addFlash("++ " + message, Style.GREEN);
     }
@@ -159,7 +147,9 @@ public class Renderer {
         flashQueue.clear();
     }
 
-    
+    /*
+        Render a bar (health / xp / durability)
+    */
     public String bar(int current, int max, int width, Style color) {
         int filled = max > 0 ? (int) Math.round((double) current / max * width) : 0;
         filled = Math.max(0, Math.min(width, filled));
@@ -170,7 +160,7 @@ public class Renderer {
         return bar;
     }
 
-    // Region rendering helper
+    // Region rendering helper (locked/unlocked states)
     public void renderAreaOptions(List<Region> regions, int playerXp) {
 
         System.out.println();

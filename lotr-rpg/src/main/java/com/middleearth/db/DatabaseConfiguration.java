@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class DatabaseConfiguration {
     private static Connection connection = null;
-
+    
     private static String url = "jdbc:mysql://localhost:3306/lotr_db";
     private static String user = "lotr_user";
     private static String password = "pass";
@@ -39,6 +39,7 @@ public class DatabaseConfiguration {
     }
 
     public static void execute(String sql) throws SQLException {
+        // try-catch with resources to ensure the statement is closed after execution
         try (Statement stmt = getConnection().createStatement()) {
             stmt.execute(sql);
         }

@@ -8,9 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerRepository implements GenericRepository<Player> {
+public class PlayerRepository {
 
-    @Override
+    private CharacterClassRepository classRepo = new CharacterClassRepository();
+    private ItemRepository itemRepo = new ItemRepository();
+
     public void insert(Player player) {
         String sql = "INSERT INTO players (name, class_id, health, xp, equipped_weapon_id, equipped_armor_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -32,7 +34,6 @@ public class PlayerRepository implements GenericRepository<Player> {
         }
     }
 
-    @Override
     public Player getById(int id) {
         String sql = "SELECT * FROM players WHERE id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -48,7 +49,6 @@ public class PlayerRepository implements GenericRepository<Player> {
         return null;
     }
 
-    @Override
     public List<Player> getAll() {
         List<Player> players = new ArrayList<>();
         String sql = "SELECT * FROM players";
@@ -63,7 +63,6 @@ public class PlayerRepository implements GenericRepository<Player> {
         return players;
     }
 
-    @Override
     public void update(Player player) {
         String sql = "UPDATE players SET name = ?, class_id = ?, health = ?, xp = ?, equipped_weapon_id = ?, equipped_armor_id = ? WHERE id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -80,7 +79,6 @@ public class PlayerRepository implements GenericRepository<Player> {
         }
     }
 
-    @Override
     public void delete(int id) {
         String sql = "DELETE FROM players WHERE id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -90,9 +88,6 @@ public class PlayerRepository implements GenericRepository<Player> {
             System.err.println("[DB] Failed to delete player: " + e.getMessage());
         }
     }
-
-    private final CharacterClassRepository classRepo = new CharacterClassRepository();
-    private final ItemRepository itemRepo = new ItemRepository();
 
     private void setNullableItemId(PreparedStatement ps, int idx, Item item) throws java.sql.SQLException {
         if (item != null && item.getId() > 0) {

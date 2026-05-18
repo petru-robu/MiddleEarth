@@ -7,16 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestRepository implements GenericRepository<Quest> {
+public class QuestRepository {
 
-    private final ItemRepository itemRepo = new ItemRepository();
+    private ItemRepository itemRepo = new ItemRepository();
 
-    @Override
-    public void insert(Quest obj) {
-        throw new UnsupportedOperationException("Quests are seeded via migrations.");
-    }
-
-    @Override
     public Quest getById(int id) {
         String sql = "SELECT * FROM quests WHERE id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -32,7 +26,6 @@ public class QuestRepository implements GenericRepository<Quest> {
         return null;
     }
 
-    @Override
     public List<Quest> getAll() {
         List<Quest> quests = new ArrayList<>();
         String sql = "SELECT * FROM quests ORDER BY id";
@@ -62,17 +55,6 @@ public class QuestRepository implements GenericRepository<Quest> {
         }
         return quests;
     }
-
-    @Override
-    public void update(Quest obj) {
-        throw new UnsupportedOperationException("Quests are seeded via migrations.");
-    }
-
-    @Override
-    public void delete(int id) {
-        throw new UnsupportedOperationException("Quests are seeded via migrations.");
-    }
-
     private Quest mapRow(ResultSet rs) throws SQLException {
         Quest quest = new Quest(
             rs.getString("title"),

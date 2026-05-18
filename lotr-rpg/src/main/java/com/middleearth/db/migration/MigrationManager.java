@@ -13,10 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MigrationManager {
-
+    /*
+        Migration manager that applies SQL migration scripts in order. 
+        It keeps track of applied migrations in a dedicated table.
+    */
     private static final String MIGRATION_TABLE = "schema_migrations";
     private static final String MIGRATION_PATH = "/db/migrations/";
 
+    // apply pending migration
     public void migrate() throws SQLException {
         ensureMigrationTable();
         List<Migration> pending = getPendingMigrations();
@@ -35,6 +39,7 @@ public class MigrationManager {
         System.out.println("[Migration] All migrations applied successfully.");
     }
 
+    // create migration table if it doesn't exist
     private void ensureMigrationTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS " + MIGRATION_TABLE + " ("
                 + "version INT PRIMARY KEY, "
@@ -44,6 +49,7 @@ public class MigrationManager {
         DatabaseConfiguration.execute(sql);
     }
 
+    // get list of applied migration versions
     private List<Integer> getAppliedVersions() throws SQLException {
         List<Integer> versions = new ArrayList<>();
         String sql = "SELECT version FROM " + MIGRATION_TABLE;
@@ -60,17 +66,20 @@ public class MigrationManager {
         List<Integer> applied = getAppliedVersions();
         List<Migration> allMigrations = discoverMigrations();
 
+        // java streams
         return allMigrations.stream()
                 .filter(m -> !applied.contains(m.getVersion()))
                 .sorted(Comparator.comparingInt(Migration::getVersion))
                 .collect(Collectors.toList());
     }
 
+
     private List<Migration> discoverMigrations() {
         List<Migration> migrations = new ArrayList<>();
 
         // Read the index file that lists all migration filenames
         InputStream indexStream = getClass().getResourceAsStream(MIGRATION_PATH + "migrations.index");
+
         if (indexStream == null) {
             System.err.println("[Migration] No migrations.index found in classpath.");
             return migrations;
@@ -106,16 +115,19 @@ public class MigrationManager {
         }
 
         try {
+            // get migration info
             String withoutExt = filename.replace(".sql", "");
             String[] parts = withoutExt.split("__", 2);
             int version = Integer.parseInt(parts[0].substring(1));
             String description = parts[1].replace("_", " ");
 
             InputStream is = getClass().getResourceAsStream(MIGRATION_PATH + filename);
+
             if (is == null) {
                 return null;
             }
 
+            // get migration sql content
             String sql;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
                 sql = reader.lines().collect(Collectors.joining("\n"));
@@ -127,9 +139,10 @@ public class MigrationManager {
             return null;
         }
     }
-
+    // execute the SQL statements in the migration
     private void executeMigration(Migration migration) throws SQLException {
         Connection conn = DatabaseConfiguration.getConnection();
+        
         // Split on semicolons to support multi-statement migrations
         String[] statements = migration.getSql().split(";");
         for (String s : statements) {
@@ -142,6 +155,7 @@ public class MigrationManager {
         }
     }
 
+    // record migration in db
     private void recordMigration(Migration migration) throws SQLException {
         String sql = "INSERT INTO " + MIGRATION_TABLE + " (version, description) VALUES (?, ?)";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {

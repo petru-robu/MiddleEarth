@@ -51,4 +51,3 @@ com/middleearth/engine/Enemy.class
 com/middleearth/state/CharacterSelectState.class
 com/middleearth/items/types/Potion.class
 com/middleearth/items/Consumable.class
-com/middleearth/db/GenericRepository.class

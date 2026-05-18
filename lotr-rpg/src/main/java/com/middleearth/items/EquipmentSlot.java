@@ -1,5 +1,6 @@
 package com.middleearth.items;
 
+// Equipable slot enum
 public enum EquipmentSlot {
     HEAD,
     CHEST,

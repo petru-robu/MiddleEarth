@@ -7,7 +7,6 @@ import com.middleearth.engine.GameSession;
 import com.middleearth.engine.Player;
 import com.middleearth.items.Consumable;
 import com.middleearth.items.Equipable;
-import com.middleearth.items.EquipmentSlot;
 import com.middleearth.items.Item;
 
 import java.util.ArrayList;
@@ -22,15 +21,19 @@ public class InventoryState implements GameState {
     private final InventoryItemRepository inventoryRepo = new InventoryItemRepository();
 
     public InventoryState(GameState previousState) {
+        // Save previous state to know where to return
         this.previousState = previousState;
     }
 
+    /*
+        Return formatted item liss, info about equipped, consumable, etc.
+    */
     private String formatItemForList(Item item, Player player) {
         StringBuilder sb = new StringBuilder();
 
-        // Show equipped indicator
         boolean isEquipped = (player.getEquippedWeapon() != null && player.getEquippedWeapon().getId() == item.getId())
             || (player.getEquippedArmor() != null && player.getEquippedArmor().getId() == item.getId());
+
         if (isEquipped) {
             sb.append(Renderer.Style.GREEN).append("[E] ").append(Renderer.Style.RESET);
         }
@@ -56,7 +59,10 @@ public class InventoryState implements GameState {
     @Override
     public GameState update() {
         Renderer ui = Renderer.getInstance();
+
+        // Audit view inventory action
         AuditService.getInstance().log(AuditService.VIEW_INVENTORY);
+
         ui.clear();
         ui.renderFlashes();
         ui.renderTitle("Player Information & Inventory");
@@ -64,6 +70,7 @@ public class InventoryState implements GameState {
         ui.renderSubtitle("Information: ");
         Player player = GameSession.getInstance().getPlayer();
 
+        // Render HP, ATK, DEF, XP for player
         int maxHp = player.getCharacterClass() != null ? player.getCharacterClass().getBaseHealth() : 100;
         int atk   = player.getAttackBonus();
         int def   = player.getDefenseBonus();
@@ -81,6 +88,8 @@ public class InventoryState implements GameState {
         String weaponName = player.getEquippedWeapon() != null ? player.getEquippedWeapon().getName()
             : (player.getCharacterClass() != null && player.getCharacterClass().getStarterWeapon() != null
                ? player.getCharacterClass().getStarterWeapon().getName() + " (default)" : "none");
+
+               
         String armorName = player.getEquippedArmor() != null ? player.getEquippedArmor().getName() : "none";
         ui.render("  Weapon: " + Renderer.Style.GOLD + weaponName + Renderer.Style.RESET);
         ui.render("  Armor:  " + Renderer.Style.GOLD + armorName + Renderer.Style.RESET);
@@ -97,13 +106,14 @@ public class InventoryState implements GameState {
             String.format("  %.1f / %.1f kg", currentWeight, maxCapacity));
 
         if (items.isEmpty()) {
-            ui.render("Your bag is entirely empty. Only dust remains.");
+            ui.render("Your bag is entirely empty.");
             String input = ui.prompt("Type :b to go back");
             if (input.equalsIgnoreCase(":b")) return previousState;
             if (input.equalsIgnoreCase(":i")) return this;
             return CommandInterceptor.handle(input, this);
         }
 
+        /* TreeSet to have categories sorted */
         TreeSet<String> categories = new TreeSet<>();
         for (Item item : items) {
             if (item instanceof Equipable) {
@@ -149,9 +159,11 @@ public class InventoryState implements GameState {
         return this;
     }
 
+    /* Handle an action with an item */
     private void handleItemAction(Renderer ui, Player player, Item selected) {
         boolean isEquippedWeapon = player.getEquippedWeapon() != null
             && player.getEquippedWeapon().getId() == selected.getId();
+
         boolean isEquippedArmor = player.getEquippedArmor() != null
             && player.getEquippedArmor().getId() == selected.getId();
 
@@ -160,7 +172,7 @@ public class InventoryState implements GameState {
             boolean isEquipped = isEquippedWeapon || isEquippedArmor;
 
             if (isEquipped) {
-                // Show equip/unequip choice
+                // Show equip/unequip choice + audit actions
                 ui.render("\n  " + Renderer.Style.GOLD + selected.getName() + Renderer.Style.RESET + " is currently equipped.\n");
                 ui.render("  " + Renderer.Style.CYAN + "1) " + Renderer.Style.RESET + "Unequip");
                 ui.render("  " + Renderer.Style.CYAN + "2) " + Renderer.Style.RESET + "Cancel");
@@ -197,6 +209,7 @@ public class InventoryState implements GameState {
             }
 
         } else if (selected instanceof Consumable) {
+            // consumable action
             Consumable cons = (Consumable) selected;
             int maxHp = player.getCharacterClass() != null ? player.getCharacterClass().getBaseHealth() : 100;
 
@@ -206,6 +219,8 @@ public class InventoryState implements GameState {
             ui.render("  " + Renderer.Style.CYAN + "1) " + Renderer.Style.RESET + "Use");
             ui.render("  " + Renderer.Style.CYAN + "2) " + Renderer.Style.RESET + "Cancel");
             String action = ui.prompt("Action").trim();
+
+            // heal player, remove item from inventory, audit action
             if (action.equals("1")) {
                 int newHp = Math.min(player.getHealth() + cons.getRestoreAmount(), maxHp);
                 int gained = newHp - player.getHealth();

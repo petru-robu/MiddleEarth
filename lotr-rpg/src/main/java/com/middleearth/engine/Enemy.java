@@ -26,25 +26,63 @@ public class Enemy {
         this.attack = attack;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getQuestId() { return questId; }
-    public void setQuestId(int questId) { this.questId = questId; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
-    public EnemyType getType() { return type; }
+    public int getQuestId() {
+        return questId;
+    }
 
-    public int getMaxHealth() { return maxHealth; }
-    public int getHealth() { return health; }
-    public void setHealth(int health) { this.health = health; }
-    public boolean isAlive() { return health > 0; }
+    public void setQuestId(int questId) {
+        this.questId = questId;
+    }
 
-    public int getAttack() { return attack; }
+    public String getName() {
+        return name;
+    }
 
-    public Item getLootItem() { return lootItem; }
-    public void setLootItem(Item lootItem) { this.lootItem = lootItem; }
+    public EnemyType getType() {
+        return type;
+    }
 
-    public String getAsciiArt() { return asciiArt; }
-    public void setAsciiArt(String asciiArt) { this.asciiArt = asciiArt; }
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public Item getLootItem() {
+        return lootItem;
+    }
+
+    public void setLootItem(Item lootItem) {
+        this.lootItem = lootItem;
+    }
+
+    public String getAsciiArt() {
+        return asciiArt;
+    }
+
+    public void setAsciiArt(String asciiArt) {
+        this.asciiArt = asciiArt;
+    }
 }

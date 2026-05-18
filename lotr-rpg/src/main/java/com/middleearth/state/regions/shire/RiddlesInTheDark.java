@@ -11,34 +11,33 @@ public class RiddlesInTheDark implements GameState {
 
     private final Quest quest;
 
-    // Each entry: { question, accepted answer(s) separated by | }
     private static final String[][] RIDDLES = {
-        {
-            "Gollum speaks: \"It cannot be seen, cannot be felt,\n" +
-            "  Cannot be heard, cannot be smelt.\n" +
-            "  It lies behind stars and under hills,\n" +
-            "  And empty holes it fills.\n" +
-            "  It comes first and follows after,\n" +
-            "  Ends life, kills laughter.\"\n" +
-            "  What is it?",
-            "dark|darkness"
-        },
-        {
-            "What is the elvish word for 'friend' that opens the Doors of Durin?",
-            "mellon"
-        },
-        {
-            "What is the name of Bilbo Baggins' home in the Shire?",
-            "bag end"
-        },
-        {
-            "Reforged from the shards of Narsil, what is the name of Aragorn's sword?",
-            "anduril|andúril"
-        },
-        {
-            "What creature was Gollum before the Ring corrupted him?",
-            "hobbit|stoor|stoor hobbit"
-        }
+            {
+                    "Gollum speaks: \"It cannot be seen, cannot be felt,\n" +
+                            "  Cannot be heard, cannot be smelt.\n" +
+                            "  It lies behind stars and under hills,\n" +
+                            "  And empty holes it fills.\n" +
+                            "  It comes first and follows after,\n" +
+                            "  Ends life, kills laughter.\"\n" +
+                            "  What is it?",
+                    "dark|darkness"
+            },
+            {
+                    "What is the elvish word for 'friend' that opens the Doors of Durin?",
+                    "mellon"
+            },
+            {
+                    "What is the name of Bilbo Baggins' home in the Shire?",
+                    "bag end"
+            },
+            {
+                    "Reforged from the shards of Narsil, what is the name of Aragorn's sword?",
+                    "anduril|andúril"
+            },
+            {
+                    "What creature was Gollum before the Ring corrupted him?",
+                    "hobbit|stoor|stoor hobbit"
+            }
     };
 
     private static final int RIDDLES_TO_PASS = 3;
@@ -57,9 +56,9 @@ public class RiddlesInTheDark implements GameState {
         ui.renderSubtitle(quest.getDescription());
 
         ui.render(Renderer.Style.GOLD +
-            "\nGollum has challenged you to a game of riddles in the dark!\n" +
-            "Answer " + RIDDLES_TO_PASS + " out of " + RIDDLES.length + " correctly to claim your reward.\n" +
-            Renderer.Style.RESET);
+                "\nGollum has challenged you to a game of riddles in the dark!\n" +
+                "Answer " + RIDDLES_TO_PASS + " out of " + RIDDLES.length + " correctly to claim your reward.\n" +
+                Renderer.Style.RESET);
 
         ui.prompt("Press ENTER to begin...");
 
@@ -86,9 +85,11 @@ public class RiddlesInTheDark implements GameState {
 
             if (isCorrect) {
                 correct++;
-                ui.render(Renderer.Style.GREEN + "\nCorrect! (" + correct + "/" + RIDDLES_TO_PASS + " needed)" + Renderer.Style.RESET);
+                ui.render(Renderer.Style.GREEN + "\nCorrect! (" + correct + "/" + RIDDLES_TO_PASS + " needed)"
+                        + Renderer.Style.RESET);
             } else {
-                ui.render(Renderer.Style.RED + "\nWrong! Gollum hisses: \"Thief! Baggins!\" The answer was: " + acceptedAnswers[0] + Renderer.Style.RESET);
+                ui.render(Renderer.Style.RED + "\nWrong! Gollum hisses: \"Thief! Baggins!\" The answer was: "
+                        + acceptedAnswers[0] + Renderer.Style.RESET);
             }
 
             ui.prompt("Press ENTER to continue...");
@@ -103,10 +104,10 @@ public class RiddlesInTheDark implements GameState {
 
         if (correct >= RIDDLES_TO_PASS) {
             ui.render(Renderer.Style.GREEN +
-                "\nGollum slinks away into the dark, furious but defeated.\n" +
-                "You have won the riddle game!\n" +
-                "Congratulations! You earned " + quest.getXpReward() + " XP!" +
-                Renderer.Style.RESET);
+                    "\nGollum slinks away into the dark, furious but defeated.\n" +
+                    "You have won the riddle game!\n" +
+                    "Congratulations! You earned " + quest.getXpReward() + " XP!" +
+                    Renderer.Style.RESET);
 
             player.addXp(quest.getXpReward());
 
@@ -119,10 +120,10 @@ public class RiddlesInTheDark implements GameState {
             ui.addFlashInfo("Got " + quest.getXpReward() + " XP!");
         } else {
             ui.render(Renderer.Style.RED +
-                "\nGollum cackles: \"Stupid, fat hobbit! We wins! We wins!\"\n" +
-                "You failed the riddle game. Only " + correct + "/" + RIDDLES_TO_PASS + " correct.\n" +
-                "Return and try again..." +
-                Renderer.Style.RESET);
+                    "\nGollum cackles: \"Stupid, fat hobbit! We wins! We wins!\"\n" +
+                    "You failed the riddle game. Only " + correct + "/" + RIDDLES_TO_PASS + " correct.\n" +
+                    "Return and try again..." +
+                    Renderer.Style.RESET);
             ui.addFlashError("You failed the riddle game! Try again.");
         }
 

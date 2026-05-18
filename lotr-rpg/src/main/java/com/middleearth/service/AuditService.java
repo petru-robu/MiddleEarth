@@ -6,12 +6,11 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Singleton service that appends an action to audit.csv
- * CSV: action_name,timestamp
- */
+/*
+    Singleton service that appends an action to audit.csv
+*/
 public class AuditService {
-
+    // path where to audit
     private static final String FILE_PATH = "audit.csv";
     private static final DateTimeFormatter FMT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -27,15 +26,16 @@ public class AuditService {
     }
 
     public void log(String action) {
+        // format time as timestamp
         String timestamp = LocalDateTime.now().format(FMT);
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_PATH, true))) {
             pw.println(action + "," + timestamp);
         } catch (IOException e) {
-            // Non-fatal: audit failure must never crash the game
             System.err.println("[AuditService] Failed to write audit log: " + e.getMessage());
         }
     }
     
+    // macros for audit actions
     public static final String ATTACK            = "ATTACK";
     public static final String USE_HEALING_ITEM  = "USE_HEALING_ITEM";
     public static final String FLEE_BATTLE       = "FLEE_BATTLE";

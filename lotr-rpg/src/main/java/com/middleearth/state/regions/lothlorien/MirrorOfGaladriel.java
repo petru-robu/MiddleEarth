@@ -11,8 +11,6 @@ import com.middleearth.ui.Renderer;
 public class MirrorOfGaladriel implements GameState {
 
     private final Quest quest;
-
-    // Each entry: { narration, choice_a, choice_b, choice_c, correct_choice (1/2/3) }
     private static final String[][] VISIONS = {
         {
             "The silver water stirs. You see a vast Eye, lidless and wreathed in flame,\n" +

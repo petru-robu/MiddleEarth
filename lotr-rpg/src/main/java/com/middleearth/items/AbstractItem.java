@@ -1,5 +1,6 @@
 package com.middleearth.items;
 
+// Abstract item class
 public abstract class AbstractItem implements Item {
     private int id;
     private final String name;

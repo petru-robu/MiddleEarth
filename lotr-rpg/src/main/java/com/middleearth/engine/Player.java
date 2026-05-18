@@ -6,7 +6,6 @@ import com.middleearth.items.EquipmentSlot;
 import com.middleearth.items.Item;
 
 public class Player implements Comparable<Player>{
-
     public static final int MAX_ATTACK  = 40;
     public static final int MAX_DEFENSE = 30;
 
@@ -16,7 +15,7 @@ public class Player implements Comparable<Player>{
     private int xp = 0;
     private CharacterClass characterClass;
 
-    // currently equipped items (nullable = nothing equipped beyond class starter)
+    // currently equipped items
     private Item equippedWeapon; // MAIN_HAND
     private Item equippedArmor;  // HEAD / CHEST / OFF_HAND / FEET
 
@@ -70,15 +69,13 @@ public class Player implements Comparable<Player>{
         this.characterClass = characterClass;
     }
 
-    // --- Equipment ---
-
+    // Equipment
     public Item getEquippedWeapon() { return equippedWeapon; }
     public void setEquippedWeapon(Item item) { this.equippedWeapon = item; }
 
     public Item getEquippedArmor() { return equippedArmor; }
     public void setEquippedArmor(Item item) { this.equippedArmor = item; }
 
-    /** Attack bonus: from equipped weapon, or class starter weapon, capped at MAX_ATTACK. */
     public int getAttackBonus() {
         int bonus = 0;
         if (equippedWeapon instanceof Equipable) {
@@ -89,7 +86,6 @@ public class Player implements Comparable<Player>{
         return Math.min(bonus, MAX_ATTACK);
     }
 
-    /** Defense bonus: from equipped armor, capped at MAX_DEFENSE. */
     public int getDefenseBonus() {
         if (equippedArmor instanceof Equipable) {
             return Math.min(((Equipable) equippedArmor).getBonus(), MAX_DEFENSE);
@@ -97,14 +93,13 @@ public class Player implements Comparable<Player>{
         return 0;
     }
 
-    /** True if this item slot is a weapon (MAIN_HAND). */
     public static boolean isWeaponSlot(EquipmentSlot slot) {
         return slot == EquipmentSlot.MAIN_HAND;
     }
 
+    // compare players by XP for leaderboard sorting
     @Override
     public int compareTo(Player other) {
-        // sort by XP descending
         return Integer.compare(other.getXp(), this.xp);
     }
 }

@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewGameState implements GameState {
+    /*
+        NewGameState:
+        - Create your player
+        - Choose class
+    */
 
     @Override
     public GameState update() {
@@ -32,6 +37,7 @@ public class NewGameState implements GameState {
 
         String name = ui.prompt("Enter your hero's name");
 
+        // Pass to command interceptor if input is actually command
         if (name.startsWith(":")) {
             return CommandInterceptor.handle(name, this);
         }
@@ -41,7 +47,8 @@ public class NewGameState implements GameState {
             return this;
         }
 
-        // --- Class selection ---
+        // Class selection
+        // Get Classes from Database
         CharacterClassRepository classRepo = new CharacterClassRepository();
         List<CharacterClass> classes = classRepo.getAll();
 
@@ -65,6 +72,8 @@ public class NewGameState implements GameState {
                     + "  |  Item: " + itemInfo
                     + "\n");
         }
+
+
         ui.renderOptions(options);
 
         String choice = ui.prompt("Pick a class: ");
@@ -87,14 +96,13 @@ public class NewGameState implements GameState {
         }
 
         CharacterClass chosen = classes.get(classIndex);
-
         Player player = new Player(name, chosen);
 
         // Persist to database
         PlayerRepository repo = new PlayerRepository();
         repo.insert(player);
 
-        // Save starter items to the database and auto-equip them
+        // Save starter items to the database and equip them
         if (player.getId() > 0) {
             InventoryItemRepository inventoryRepo = new InventoryItemRepository();
 
@@ -111,16 +119,16 @@ public class NewGameState implements GameState {
             repo.update(player);
         }
 
+        // Player Creation flashes
         if (player.getId() > 0) {
             ui.addFlashInfo("Hero '" + name + "' the " + chosen.getName() + " saved to the chronicles.");
         } else {
-            ui.addFlashInfo("Hero '" + name + "' created (not persisted — no database).");
+            ui.addFlashInfo("Hero '" + name + "' created (not persisted).");
         }
 
         // Initialize the game session with the new player
         GameSession.init(player);
         AuditService.getInstance().log(AuditService.NEW_GAME);
-
         return new com.middleearth.state.CharacterSelectState();
     }
 }

@@ -15,6 +15,9 @@ public class OpenWorld implements GameState {
 
     private final GameState previousState;
 
+    /*
+        Previous state to know where to return.
+    */
     public OpenWorld(GameState previousState) {
         this.previousState = previousState;
     }
@@ -34,13 +37,11 @@ public class OpenWorld implements GameState {
         RegionRepository regionRepo = new RegionRepository();
 
         List<Region> worldMap = regionRepo.getAll();
-
         ui.renderAreaOptions(worldMap, player.getXp());
-
         String input = ui.prompt("Choose a destination: ");
 
         if (input.startsWith(":")) {
-            // pass to interceptor
+            // delegate to interceptor
             return CommandInterceptor.handle(input, this);
         }
 
@@ -49,7 +50,6 @@ public class OpenWorld implements GameState {
         } catch(NumberFormatException e) {
             ui.addFlashError("Invalid choice.");
             return this;
-        
         }
         
         int index = Integer.parseInt(input) - 1;
@@ -64,7 +64,7 @@ public class OpenWorld implements GameState {
             ui.addFlashError("You cannot enter " + selected.getName() + " yet!");
             return this;
         }
-
+        
         switch (input) {
             case "1":
                 return new com.middleearth.state.regions.shire.Shire();

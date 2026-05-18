@@ -34,7 +34,6 @@
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/GameState.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/RegionRepository.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/lothlorien/OrcRaid.java
-/home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/db/GenericRepository.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/state/regions/shire/ExploreTheShire.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/engine/Region.java
 /home/petru-robu/Code/MiddleEarth/lotr-rpg/src/main/java/com/middleearth/App.java

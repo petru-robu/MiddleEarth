@@ -69,10 +69,32 @@ Implementat in `service.AuditService`.
 
 Migrarile ruleaza automat din: `src/main/resources/db/migrations/`.
 Conventie de denumire: `V{nr}__{descriere}.sql`
+
+Comenzi utile: 
+
+```bash
+systemctl status mariadb
+systemctl start mariadb
+
+sudo mysql
+USE lotr_db;
+```
+
+Diagrama DB:
+![diagrams/db.svg](diagrams/db.svg)
+
 ---
 
-## Rulare
+## Comenzi globale in joc
 
+| Comanda | Efect |
+|---------|-------|
+| `:i` | Informatii despre jucator si inventar |
+| `:h` | Afiseaza comenzile disponibile |
+| `:r` | Redeseneaza ecranul |
+| `:q` | Iese din joc |
+
+## Rulare
 ### Cerinte
 
 - JDK 11+
@@ -87,7 +109,7 @@ sudo mysql -e "CREATE USER IF NOT EXISTS 'lotr_user'@'localhost' IDENTIFIED BY '
 sudo mysql -e "GRANT ALL PRIVILEGES ON lotr_db.* TO 'lotr_user'@'localhost'; FLUSH PRIVILEGES;"
 ```
 
-### 2. Compilare si ambalare
+### 2. Compilare
 
 ```bash
 cd lotr-rpg
@@ -107,13 +129,8 @@ sudo mysql -e "DROP DATABASE lotr_db; CREATE DATABASE lotr_db;"
 # Porneste jocul - migrarile ruleaza automat
 ```
 
----
+--- 
+## Diagrama aplicatie
 
-## Comenzi globale in joc
+![diagrams/app.svg](diagrams/app.svg)
 
-| Comanda | Efect |
-|---------|-------|
-| `:i` | Informatii despre jucator si inventar |
-| `:h` | Afiseaza comenzile disponibile |
-| `:r` | Redeseneaza ecranul |
-| `:q` | Iese din joc |

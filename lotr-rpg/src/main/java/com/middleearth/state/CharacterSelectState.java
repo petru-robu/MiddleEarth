@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class CharacterSelectState implements GameState {
+    /*
+        Select an existing hero or create a new one.
+    */
 
     @Override
     public GameState update() {
@@ -22,6 +25,7 @@ public class CharacterSelectState implements GameState {
 
         ui.renderTitle("Character Select");
 
+        // Get players from DB
         PlayerRepository repo = new PlayerRepository();
         List<Player> player_repo = repo.getAll();
 

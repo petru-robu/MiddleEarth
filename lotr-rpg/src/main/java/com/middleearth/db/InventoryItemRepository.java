@@ -39,6 +39,7 @@ public class InventoryItemRepository {
     }
 
     public double getTotalWeight(int playerId) {
+        // coalesce to return 0 if no items are found
         String sql = "SELECT COALESCE(SUM(i.weight), 0) FROM items i JOIN inventory_items ii ON i.id = ii.item_id WHERE ii.player_id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
             ps.setInt(1, playerId);

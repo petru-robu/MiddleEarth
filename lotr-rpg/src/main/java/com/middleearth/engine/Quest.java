@@ -4,6 +4,7 @@ import com.middleearth.items.Item;
 
 public class Quest {
 
+    // quest type enum
     public enum QuestType {
         PUZZLE, BATTLE
     }

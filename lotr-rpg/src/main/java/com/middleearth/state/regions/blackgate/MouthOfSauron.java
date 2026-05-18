@@ -15,8 +15,7 @@ public class MouthOfSauron implements GameState {
     private final Quest quest;
     private final Random rand = new Random();
 
-    // Each entry: { setup_text, claim_a, claim_b, claim_c, claim_d, index_of_lie (0-based) }
-    // The Mouth presents 3 truths and 1 lie — player must spot which is the lie.
+    // generated game stories
     private static final String[][] ROUNDS = {
         {
             "The Mouth of Sauron smiles his lipless smile. \"Let us play a game of truth, little warrior.\n" +

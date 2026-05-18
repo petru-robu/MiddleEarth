@@ -9,14 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegionRepository implements GenericRepository<Region> {
-
-    @Override
-    public void insert(Region region) {
-        throw new UnsupportedOperationException("Classes are seeded via migrations.");
-    }
-
-    @Override
+public class RegionRepository {
     public Region getById(int id) {
         String sql = "SELECT * FROM regions WHERE id = ?";
         try (PreparedStatement ps = DatabaseConfiguration.getConnection().prepareStatement(sql)) {
@@ -32,7 +25,6 @@ public class RegionRepository implements GenericRepository<Region> {
         return null;
     }
 
-    @Override
     public List<Region> getAll() {
         List<Region> regions = new ArrayList<>();
         String sql = "SELECT * FROM regions ORDER BY id";
@@ -45,16 +37,6 @@ public class RegionRepository implements GenericRepository<Region> {
             System.err.println("[DB] Failed to get regions: " + e.getMessage());
         }
         return regions;
-    }
-
-    @Override
-    public void update(Region obj) {
-        throw new UnsupportedOperationException("Classes are seeded via migrations.");
-    }
-
-    @Override
-    public void delete(int id) {
-        throw new UnsupportedOperationException("Classes are seeded via migrations.");
     }
 
     private Region mapRow(ResultSet rs) throws SQLException {

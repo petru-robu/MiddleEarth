@@ -1,7 +1,5 @@
 package com.middleearth.engine;
 
-import java.util.List;
-
 public class GameSession {
     private static GameSession instance;
     private Player currentPlayer;

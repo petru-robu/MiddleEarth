@@ -46,7 +46,7 @@ public class ItemRepository {
         List<Item> items = new ArrayList<>();
         String sql = "SELECT * FROM items ORDER BY id";
         try (Statement stmt = DatabaseConfiguration.getConnection().createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+                ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 items.add(mapRow(rs));
             }
@@ -76,7 +76,8 @@ public class ItemRepository {
                 if (slotStr != null) {
                     try {
                         armorSlot = EquipmentSlot.valueOf(slotStr);
-                    } catch (IllegalArgumentException ignored) {}
+                    } catch (IllegalArgumentException ignored) {
+                    }
                 }
                 Armor a = new Armor(name, description, weight, armorSlot, bonus);
                 a.setId(id);

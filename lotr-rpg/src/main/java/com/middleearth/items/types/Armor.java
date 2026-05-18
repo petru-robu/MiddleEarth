@@ -5,6 +5,10 @@ import com.middleearth.items.Equipable;
 import com.middleearth.items.EquipmentSlot;
 
 public class Armor extends AbstractItem implements Equipable {
+    /*
+        Armor implements Equipable (must define getSlot() and getBonus()) and extends AbstractItem.
+    */
+   
     private final EquipmentSlot slot;
     private final int defense;
 
